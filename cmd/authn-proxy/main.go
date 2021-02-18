@@ -14,12 +14,13 @@ import (
 
 const (
 	defaultBindAddress = "0.0.0.0:5443"
-	defaultKubeConfig  = "/etc/kubernetes/admin.conf"
+	defaultKubeConfig  = "upstream.conf"
 )
 
 func run(ctx context.Context) error {
 	bindAddress := flag.String("bindAddress", defaultBindAddress, "Address and port to listen at")
 	kubeConfig := flag.String("kubeconfig", defaultKubeConfig, "Configuration file with client credentials and server information")
+	flag.Parse()
 
 	handler, err := kubeproxy.HandlerFromKubeconfig(*kubeConfig)
 	if err != nil {
